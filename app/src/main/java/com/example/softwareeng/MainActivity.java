@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //updateUI(currentUser);
         //Check if user is already logged in (debugging)
-        Log.d(TAG, "USER IS ALREADY LOGGED IN");
+        //Log.d(TAG, "USER IS ALREADY LOGGED IN");
 
         if(currentUser == null){
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
