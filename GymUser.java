@@ -2,10 +2,13 @@ package app;
 
 
 public class GymUser {
-    boolean checkedIn;
+    private boolean checkedIn;
+    private int numberOfCheckedIn;
+    
 
     public GymUser(){
         checkedIn = true;
+        
     }
 
 
@@ -16,11 +19,11 @@ public class GymUser {
         return checkedIn;
     }
 
+    public int getNumberOfCheckedIn() {
+        return numberOfCheckedIn;
+    }
 
-
-
-
-
-
-
+    public void setNumberOfCheckedIn(int numberOfCheckedIn) {
+        this.numberOfCheckedIn = numberOfCheckedIn;
+    }
 }
