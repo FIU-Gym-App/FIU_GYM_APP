@@ -3,7 +3,7 @@ package app;
 
 public class GymUser {
     private boolean checkedIn;
-    private int numberOfCheckedIn = 0;
+    private static int numberOfCheckedIn = 0;
     
 
     public GymUser(){
