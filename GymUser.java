@@ -20,11 +20,11 @@ public class GymUser {
         return checkedIn;
     }
 
-    public int getNumberOfCheckedIn() {
+    public static int getNumberOfCheckedIn() {
         return numberOfCheckedIn;
     }
 
-    public void setNumberOfCheckedIn(int numberOfCheckedIn) {
+    public static void setNumberOfCheckedIn(int numberOfCheckedIn) {
         GymUser.numberOfCheckedIn = numberOfCheckedIn;
     }
 }
