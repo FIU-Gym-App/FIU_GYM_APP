@@ -1,4 +1,4 @@
-package app;
+package com.example.softwareeng.Nicole;
 import java.util.Timer;
 
 public class GymTimer {

@@ -1,4 +1,4 @@
-/*package app;
+package com.example.softwareeng.Nicole;/*package app;
 
 public class Histogram {
     private final double[] freq;   // freq[i] = # occurences of value i
