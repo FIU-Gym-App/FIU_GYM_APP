@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,13 +35,10 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity {
     final String TAG = "LOGIN ACTIVITY";
-    TextView tv_TitleUsername;
-    TextView tv_TitlePassword;
-    EditText et_Email;
-    EditText et_Password;
-    Button btn_Login;
-    Button btn_Register;
+
+
     FloatingActionButton GoogleLoginBtn;
+    ImageView logo;
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
@@ -54,6 +53,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        logo = findViewById(R.id.logo);
+        int imageResource = getResources().getIdentifier("@drawable/fiugymapplogo", null , this.getPackageName());
+        logo.setImageResource(imageResource);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -70,12 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 //        checkUser();
 
         //setting elements to actual layout objects
-        tv_TitleUsername = findViewById(R.id.tv_Email_LoginActivity);
-        tv_TitlePassword = findViewById(R.id.tv_Password_LoginActivity);
-        et_Email = findViewById(R.id.et_Email_LoginActivity);
-        et_Password = findViewById(R.id.et_Password_LoginActivity);
-        btn_Login = findViewById(R.id.btn_Login_LoginActivity);
-        btn_Register = findViewById(R.id.btn_Register_LoginActivity);
+
         GoogleLoginBtn = findViewById(R.id.btn_GoogleSignIn_LoginActivity);
 
         GoogleLoginBtn.setOnClickListener(new View.OnClickListener() {
@@ -97,12 +95,7 @@ public class LoginActivity extends AppCompatActivity {
 //            }
 //        });
 
-        btn_Register.setOnClickListener(view -> {
 
-            //Initialize desired activity (Register in this case)
-            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-            finish();
-        });
 
 
     }

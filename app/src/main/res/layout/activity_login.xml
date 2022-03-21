@@ -7,50 +7,19 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/tv_Email_LoginActivity"
+
+    <ImageView
+        android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email" />
-
-    <EditText
-        android:id="@+id/et_Email_LoginActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
-
-    <TextView
-        android:id="@+id/tv_Password_LoginActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Password" />
-
-    <EditText
-        android:id="@+id/et_Password_LoginActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <Button
-        android:id="@+id/btn_Login_LoginActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login" />
-
-    <Button
-        android:id="@+id/btn_Register_LoginActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register" />
-
+        tools:srcCompat="@drawable/fiugymapplogo" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_GoogleSignIn_LoginActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         android:clickable="true"
         app:backgroundTint="#3F51B5"
         app:srcCompat="@drawable/googleg_standard_color_18" />

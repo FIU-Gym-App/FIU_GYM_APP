@@ -8,18 +8,6 @@
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/tv_Welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginEnd="125dp"
-        android:layout_marginBottom="337dp"
-        android:text="WELCOME"
-        android:textSize="30dp" />
-
     <Button
         android:id="@+id/btn_Logout_MainActivity"
         android:layout_width="wrap_content"
@@ -30,4 +18,14 @@
         android:layout_marginEnd="160dp"
         android:layout_marginBottom="257dp"
         android:text="LOGOUT" />
+
+    <Button
+        android:id="@+id/btn_CheckIn_MainActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="163dp"
+        android:backgroundTint="#36AA3B"
+        android:text="CheckIn" />
 </RelativeLayout>
