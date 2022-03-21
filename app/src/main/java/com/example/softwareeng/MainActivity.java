@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.softwareeng.Nicole.MiddleMan;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,10 +50,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //make this happen when check in is clicked
                 DocumentReference checkIn = db.collection("checkInCounter").document("checkIn");
-                // Atomically increment the population of the city by 50.
+                // Atomically increment the population by 1
                 checkIn.update("checkIn", FieldValue.increment(1));
+                MiddleMan.checkOutTimer();
             }
         });
+
+
 
 
 
