@@ -1,23 +1,22 @@
 
 public class GymThresholdCalculator extends GymUser
 {
-	public int maxUser = 100;
-	public int numberOfCheckedIn = 0; 
- public void run() {
-	 GymUser.setCheckedIn(true);
-	 System.out.println(GymUser.getCheckedIn());
-	    GymUser.setNumberOfCheckedIn(GymUser.getNumberOfCheckedIn()+ 1);
-	    numberOfCheckedIn = numberOfCheckedIn +1;
-	    
+	public int maxUser = 500;
+ 
+ public void thresholdCalculator(){
+	
+	   int currentPopulation = GymUser.getNumberOfCheckedIn();
+	   int numberCheckedIn = currentPopulation/maxUser;
+
 	   
-	 /*   
-	    if(numberOfCheckedIn >= maxUser * 60 / 100)
+	   
+	    if(numberCheckedIn >= 0.4*(maxUser) && numberCheckedIn <= 0.6*(maxUser))
 	    	
 	    {
 	    	System.out.println("the population reached 60% capacity ");
 	    }
 	    
-	   */
+	  
 	   
  }
 }
