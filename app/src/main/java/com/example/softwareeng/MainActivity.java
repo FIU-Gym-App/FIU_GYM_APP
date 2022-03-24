@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     Button btn_Logout;
     Button btn_CheckIn;
+    Button btn_Bar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         btn_Logout = findViewById(R.id.btn_Logout_MainActivity);
         btn_CheckIn = findViewById(R.id.btn_CheckIn_MainActivity);
+        btn_Bar = findViewById(R.id.btn_Bar_MainActivity);
 
         btn_CheckIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 // Atomically increment the population by 1
                 checkIn.update("checkIn", FieldValue.increment(1));
                 MiddleMan.checkOutTimer();
+            }
+        });
+
+        btn_Bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, BarChartActivity.class));
+
+
             }
         });
 
