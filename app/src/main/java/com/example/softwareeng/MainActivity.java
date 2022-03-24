@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,14 +26,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseMenu {
     final String TAG = "MAIN ACTIVITY";
     private FirebaseAuth mAuth;
-    Button btn_Logout;
+    //Button btn_Logout;
     Button btn_CheckIn;
     Button btn_Bar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
 
 
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //initialize the FireBaseAuth instance
         mAuth = FirebaseAuth.getInstance();
-        btn_Logout = findViewById(R.id.btn_Logout_MainActivity);
+        //btn_Logout = findViewById(R.id.btn_Logout_MainActivity);
         btn_CheckIn = findViewById(R.id.btn_CheckIn_MainActivity);
         btn_Bar = findViewById(R.id.btn_Bar_MainActivity);
 
@@ -68,22 +69,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
         //on click listener for btn
-        btn_Logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //logout method with firebase
-                FirebaseAuth.getInstance().signOut();
-                //take user to login screen
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }
-        });
-
-
-
+//        btn_Logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //logout method with firebase
+//                FirebaseAuth.getInstance().signOut();
+//                //take user to login screen
+//                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//            }
+//        });
 
 
     }
@@ -103,9 +98,5 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
     }
-
-
-
-
 
 }

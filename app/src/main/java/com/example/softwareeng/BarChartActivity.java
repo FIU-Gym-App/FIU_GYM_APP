@@ -13,12 +13,13 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-public class BarChartActivity extends AppCompatActivity {
+public class BarChartActivity extends BaseMenu {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bar_chart);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         BarChart barChart = findViewById(R.id.barChart);
 
@@ -32,7 +33,7 @@ public class BarChartActivity extends AppCompatActivity {
         checkIns.add(new BarEntry(7,90));
 
         BarDataSet barDataSet = new BarDataSet(checkIns,"Population");
-        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
 
@@ -41,7 +42,7 @@ public class BarChartActivity extends AppCompatActivity {
         barChart.setFitBars(true);
         barChart.setData(barData);
         barChart.getDescription().setText("Popularity");
-        barChart.animateY(2000);
+        barChart.animateY(500);
 
 
 
