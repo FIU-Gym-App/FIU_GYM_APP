@@ -71,7 +71,7 @@ public class BarChartActivity extends BaseMenu {
         barChart.setVisibleXRangeMaximum(7);
 
         barChart.invalidate();
-
+//update
         barChart.animateY(500);
 
 
