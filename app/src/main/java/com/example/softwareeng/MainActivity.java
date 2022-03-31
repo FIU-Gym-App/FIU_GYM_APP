@@ -25,6 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class MainActivity extends BaseMenu {
     final String TAG = "MAIN ACTIVITY";
@@ -32,6 +35,8 @@ public class MainActivity extends BaseMenu {
     //Button btn_Logout;
     Button btn_CheckIn;
     Button btn_Bar;
+    TextView txt_gymSchedule;
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -47,6 +52,21 @@ public class MainActivity extends BaseMenu {
         //btn_Logout = findViewById(R.id.btn_Logout_MainActivity);
         btn_CheckIn = findViewById(R.id.btn_CheckIn_MainActivity);
         btn_Bar = findViewById(R.id.btn_Bar_MainActivity);
+        txt_gymSchedule = findViewById(R.id.txt_GymSchedule_MainActivity);
+
+
+
+
+        txt_gymSchedule.setText(
+                "Monday \t\t\t\t6AM–11PM\n" +
+                "Tuesday \t\t\t\t6AM–11PM\n" +
+                "Wednesday\t\t6AM–11PM\n" +
+                "Thursday \t\t\t6AM–11PM\n" +
+                "Friday     \t\t\t\t\t6AM–9PM\n" +
+                "Saturday  \t\t\t10AM–7PM\n" +
+                "Sunday     \t\t\t10AM–7PM");
+
+
 
         btn_CheckIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +74,10 @@ public class MainActivity extends BaseMenu {
                 //make this happen when check in is clicked
                 DocumentReference checkIn = db.collection("checkInCounter").document("checkIn");
                 // Atomically increment the population by 1
+                Date currentTime = Calendar.getInstance().getTime();
+                Log.d("Main", "Current time:" + currentTime.toString());
+
+
                 checkIn.update("checkIn", FieldValue.increment(1));
                 MiddleMan.checkOutTimer();
             }
@@ -67,6 +91,8 @@ public class MainActivity extends BaseMenu {
 
             }
         });
+
+
 
 
         //on click listener for btn
