@@ -1,5 +1,6 @@
 package com.example.softwareeng;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -13,10 +14,19 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class BarChartActivity extends BaseMenu {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String TAG = "BarChartActivity";
+    DocumentSnapshot document;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +34,36 @@ public class BarChartActivity extends BaseMenu {
         setContentView(R.layout.activity_bar_chart);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //DocumentReference checkIn = db.collection("checkInCounter").document("times");
+        DocumentReference docRef = db.collection("checkInCounter").document("times");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        Log.d(TAG, "DATA FROM 6-7: " + document.getDouble("06-07"));
 
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
 
         BarChart barChart = findViewById(R.id.barChart);
 
+        barChart.setPinchZoom(false);
+        barChart.setDoubleTapToZoomEnabled(false);
+
+
 
         ArrayList<BarEntry> checkIns = new ArrayList<>();
-        checkIns.add(new BarEntry(1,120));
+        checkIns.add(new BarEntry(1, 120));
         checkIns.add(new BarEntry(2,320));
         checkIns.add(new BarEntry(3,20));
         checkIns.add(new BarEntry(4,420));
@@ -50,8 +83,7 @@ public class BarChartActivity extends BaseMenu {
 
 
 
-        BarDataSet barDataSet = new BarDataSet(checkIns,"");
-
+        BarDataSet barDataSet = new BarDataSet(checkIns,"Population");
 
         barDataSet.setValueTextSize(13f);
 

@@ -19,9 +19,9 @@ public class GymTimerTask extends TimerTask{
         timer.cancel();
         //after time has finished checkout the user
         //get collection and document path
-        DocumentReference checkIn = db.collection("checkInCounter").document("checkIn");
+        //DocumentReference checkIn = db.collection("checkInCounter").document("checkIn");
         // Atomically increment the population by 1
-        checkIn.update("checkIn", FieldValue.increment(-1));
+        //checkIn.update("times", FieldValue.increment(-1));
 
     }
 }

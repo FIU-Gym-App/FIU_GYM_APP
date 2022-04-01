@@ -72,13 +72,27 @@ public class MainActivity extends BaseMenu {
             @Override
             public void onClick(View view) {
                 //make this happen when check in is clicked
-                DocumentReference checkIn = db.collection("checkInCounter").document("checkIn");
+                DocumentReference checkIn = db.collection("checkInCounter").document("times");
                 // Atomically increment the population by 1
                 Date currentTime = Calendar.getInstance().getTime();
-                Log.d("Main", "Current time:" + currentTime.toString());
+                String firstHalf = currentTime.toString().substring(11,13);
+                int minute = Integer.valueOf(firstHalf)+1;
+                String minuteString = String.valueOf(minute);
 
+                //fix time if its 7, 8 or 9
+                if(minute == 7 || minute == 8 || minute == 9){
+                    minuteString = "0"+minuteString;
+                }
 
-                checkIn.update("checkIn", FieldValue.increment(1));
+                //put them together
+                String formattedTime = firstHalf + "-" + minuteString;
+
+                //use the current time substring to know where to place data
+                Log.d("Main", "Current time:" + formattedTime);
+
+                //'checkIn' field below has to be dynamic. change according to time
+                checkIn.update(formattedTime, FieldValue.increment(1));
+
                 MiddleMan.checkOutTimer();
             }
         });
