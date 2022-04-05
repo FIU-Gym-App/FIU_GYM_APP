@@ -8,8 +8,9 @@ public class GymTimerTask extends TimerTask{
 
     public void run(){
         GymUser.setCheckedIn(false);
-        System.out.println(GymUser.getCheckedIn());
+        GymUser.setCheckedOut(true);
         GymUser.setNumberOfCheckedIn(GymUser.getNumberOfCheckedIn()- 1);
+        GymUser.setNumberOfCheckedOut(GymUser.getNumberOfCheckedOut()+1);
         timer.cancel();
     }
 }
