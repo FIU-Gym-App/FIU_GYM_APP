@@ -2,12 +2,15 @@ package app;
 
 
 public class GymUser {
-    private static boolean checkedIn;
+    private boolean checkedIn;
+    private boolean checkedOut;
+    private static int numberOfCheckedIn = 0;
     private static int numberOfCheckedIn = 0;
 
 
     public GymUser(){
         checkedIn = true;
+        checkedOut = false;
         numberOfCheckedIn++;
 
     }
@@ -26,5 +29,19 @@ public class GymUser {
 
     public static void setNumberOfCheckedIn(int numberOfCheckedIn) {
         GymUser.numberOfCheckedIn = numberOfCheckedIn;
+    }
+     public static void setCheckedOut(boolean checkedOut){
+        GymUser.checkedOut = checkedOut;
+    }
+    public static boolean getCheckedOut(){
+        return checkedOut;
+    }
+
+    public static int getNumberOfCheckedOut() {
+        return numberOfCheckedOut;
+    }
+
+    public static void setNumberOfCheckedOut(int numberOfCheckedOut) {
+        GymUser.numberOfCheckedOut = numberOfCheckedOut;
     }
 }
