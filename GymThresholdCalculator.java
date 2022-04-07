@@ -10,11 +10,16 @@ public class GymThresholdCalculator extends GymUser
 
 	   
 	   
-	    if(numberCheckedIn >= 0.4*(maxUser) && numberCheckedIn <= 0.6*(maxUser))
+	    if(numberCheckedIn >= 0.4*(maxUser) && numberCheckedIn < 0.7*(maxUser))
 	    	
 	    {
-	    	System.out.println("the population reached 60% capacity ");
+	    	System.out.println("The gym is filling up");
 	    }
+	    if(numberCheckedIn >= 0.7*(maxUser)){
+	    
+	    	System.out.println("The gym is very full");
+	    }
+
 	    
 	  
 	   
