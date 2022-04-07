@@ -12,9 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SoftwareEng">
         <activity
-            android:name=".BarChartActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".ScheduleActivity"
             android:exported="false" />
+        <activity
+            android:name=".BarChartActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
