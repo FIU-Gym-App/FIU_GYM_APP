@@ -98,7 +98,7 @@ public class MainActivity extends BaseMenu {
         btn_Schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ScheduleActivity.this));
+                startActivity(new Intent(MainActivity.this, ScheduleActivity.class));
             }
         });
 
