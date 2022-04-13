@@ -67,7 +67,6 @@ public class BarChartActivity extends BaseMenu {
                         checkIns.add(new BarEntry(16,document.getDouble("22-23").floatValue()));
 
 
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         BarChart barChart = findViewById(R.id.barChart);
 
                         barChart.setPinchZoom(false);

@@ -5,27 +5,43 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.example.softwareeng.Nicole.MiddleMan;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Calendar;
 import java.util.Date;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 public class MainActivity extends BaseMenu {
     final String TAG = "MAIN ACTIVITY";
     private FirebaseAuth mAuth;
+    Double actualTime;
     //Button btn_Logout;
     Button btn_CheckIn;
     Button btn_Bar;
     Button btn_Schedule;
-
+    FirebaseMessaging firebaseMessaging = FirebaseMessaging.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+
+    Date currentTime = Calendar.getInstance().getTime();
+    String firstHalf = currentTime.toString().substring(11, 13);
+    int minute = Integer.valueOf(firstHalf) + 1;
+    String minuteString = String.valueOf(minute);
+    //put them together
+    String formattedTime = firstHalf + "-" + minuteString;
+    String globalCurrentTime = formattedTime;
 
 
 
@@ -42,19 +58,8 @@ public class MainActivity extends BaseMenu {
         btn_Bar = findViewById(R.id.btn_Histogram_MainActivity);
         btn_Schedule = findViewById(R.id.btn_Schedule_MainActivity);
         //txt_gymSchedule = findViewById(R.id.txt_GymSchedule_MainActivity);
-
-
-
-
-//        txt_gymSchedule.setText(
-//                "Monday \t\t\t\t6AM–11PM\n" +
-//                "Tuesday \t\t\t\t6AM–11PM\n" +
-//                "Wednesday\t\t6AM–11PM\n" +
-//                "Thursday \t\t\t6AM–11PM\n" +
-//                "Friday     \t\t\t\t\t6AM–9PM\n" +
-//                "Saturday  \t\t\t10AM–7PM\n" +
-//                "Sunday     \t\t\t10AM–7PM");
-
+        firebaseMessaging.subscribeToTopic("change_in_population");
+        firebaseMessaging.subscribeToTopic("change_in_population_filling");
 
 
         btn_CheckIn.setOnClickListener(new View.OnClickListener() {
@@ -63,18 +68,13 @@ public class MainActivity extends BaseMenu {
                 //make this happen when check in is clicked
                 DocumentReference checkIn = db.collection("checkInCounter").document("times");
                 // Atomically increment the population by 1
-                Date currentTime = Calendar.getInstance().getTime();
-                String firstHalf = currentTime.toString().substring(11,13);
-                int minute = Integer.valueOf(firstHalf)+1;
-                String minuteString = String.valueOf(minute);
+
 
                 //fix time if its 7, 8 or 9
-                if(minute == 7 || minute == 8 || minute == 9){
-                    minuteString = "0"+minuteString;
+                if (minute == 7 || minute == 8 || minute == 9) {
+                    minuteString = "0" + minuteString;
                 }
 
-                //put them together
-                String formattedTime = firstHalf + "-" + minuteString;
 
                 //use the current time substring to know where to place data
                 Log.d("Main", "Current time:" + formattedTime);
@@ -103,18 +103,111 @@ public class MainActivity extends BaseMenu {
         });
 
 
+        DocumentReference docRef = db.collection("checkInCounter").document("times");
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentReference threshold = db.collection("checkInCounter").document("times");
+                if (task.isSuccessful()) {
+                    DocumentSnapshot documentGlobalTime = task.getResult();
+                    if (documentGlobalTime.exists()) {
+                        actualTime = documentGlobalTime.getDouble(globalCurrentTime);
+                        Log.d(TAG, "Document exists");
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
 
 
-        //on click listener for btn
-//        btn_Logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //logout method with firebase
-//                FirebaseAuth.getInstance().signOut();
-//                //take user to login screen
-//                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//            }
-//        });
+        });
+
+        DocumentReference Threshold = db.collection("checkInCounter").document("Threshold");
+
+
+        Threshold.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentReference threshold = db.collection("checkInCounter").document("Threshold");
+                if (task.isSuccessful()) {
+                    DocumentSnapshot documentNotification = task.getResult();
+                    if (documentNotification.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + documentNotification.getData());
+                        Log.d(TAG, "GLOBAL CURRENT TIME " + globalCurrentTime);
+
+                        if(actualTime > 350){
+
+                            if(documentNotification.getBoolean("over70%")){
+                                threshold.update("over70%" , false);
+                                Log.d(TAG, "SUCCESSFUL CHECK 200 if1");
+
+                            }else{
+                                threshold.update("over70%" , true);
+                                Log.d(TAG, "SUCCESSFUL CHECK 200 if2");
+                            }
+                            Log.d(TAG, "SUCCESSFUL CHECK 200");
+                        }
+
+
+
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+
+
+        });
+
+
+
+        DocumentReference secondThreshold = db.collection("checkInCounter").document("SecondThreshold");
+
+        secondThreshold.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentReference threshold = db.collection("checkInCounter").document("SecondThreshold");
+                if (task.isSuccessful()) {
+                    DocumentSnapshot documentNotification = task.getResult();
+                    if (documentNotification.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + documentNotification.getData());
+                        Log.d(TAG, "GLOBAL CURRENT TIME " + globalCurrentTime);
+
+                        if(actualTime > 200 && actualTime < 350){
+
+
+                            if(documentNotification.getBoolean("over40%")){
+                                threshold.update("over40%" , false);
+                                Log.d(TAG, "SUCCESSFUL CHECK 200 if1");
+
+                            }else{
+                                threshold.update("over40%" , true);
+                                Log.d(TAG, "SUCCESSFUL CHECK 200 if2");
+                            }
+                            Log.d(TAG, "SUCCESSFUL CHECK 200");
+                        }
+
+
+
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+
+
+        });
+
 
 
     }
